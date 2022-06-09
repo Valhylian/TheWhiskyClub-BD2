@@ -32,9 +32,9 @@ CREATE TABLE CatalogCountry (
 
 --SUBSCRIPTION
 CREATE TABLE CatalogSubscription (
-    id__subscription INT PRIMARY KEY IDENTITY (1, 1),
+    id_subscription INT PRIMARY KEY IDENTITY (1, 1),
     name_subscription VARCHAR (64) NOT NULL,
-	description_subscription VARCHAR (64) NOT NULL,
+	description_subscription VARCHAR (MAX) NOT NULL,
 	discount_subscription INT NOT NULL,
 	price_subscription MONEY NOT NULL
 );
