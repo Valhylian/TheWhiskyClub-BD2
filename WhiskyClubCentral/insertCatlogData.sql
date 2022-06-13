@@ -47,27 +47,43 @@ INSERT INTO [dbo].[CatalogProductType]
 		   ('Tennessee Whiskey')
 GO
 
+USE [WhiskyClubCentral]
+GO
+
+
+
 --SUBSCRIPTION
 INSERT INTO [dbo].[CatalogSubscription]
-           ([name_subscription]
+			([id_subscription],
+           [name_subscription]
            ,[description_subscription]
            ,[discount_subscription]
            ,[price_subscription]
            ,[discount_shipping])
      VALUES
-           ('Tier Short Glass'	--name
+			(1,
+			'Default'	--name
+           ,'Default'
+           ,0					--discount
+           ,0					--price
+           ,0)--discount ship
+		   ,
+           (2
+		   ,'Tier Short Glass'	--name
            ,'When a new whiskey is entered into the store, you receive an email with its description. You have a 5% discount on purchases'
            ,5					--discount
            ,30					--price
            ,0)					--discount ship
 		   ,
-		   ('Tier Gleincairn'	--name
+		   (3
+		   ,'Tier Gleincairn'	--name
            ,'Exclusive whiskeys. It has a 10% discount on purchases and a 20% discount on the cost of shipping. Notifications of new products to the mail.'
            ,10					--discount
            ,70					--price
            ,20)					--discount ship
 		   ,
-		   ('Tier Master Distiller'	--name
+		   (4
+		   ,'Tier Master Distiller'	--name
            ,'Free shipping cost. You have a 30% discount on purchases and every 10 whiskeys you buy, you get a free whiskey. Access to the catalog of special whiskeys. Mail notification of new products.'
            ,30					--discount
            ,100					--price

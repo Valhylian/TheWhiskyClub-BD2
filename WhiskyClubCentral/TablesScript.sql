@@ -13,6 +13,7 @@ CREATE TABLE Product (
 	distillery_product INT NOT NULL,
 	container_product INT NOT NULL,
 	price_product MONEY NOT NULL,
+	special_product BIT NOT NULL DEFAULT 0,
 	FOREIGN KEY (type_product)		REFERENCES [dbo].[CatalogProductType] ([id_ProductType]),
     FOREIGN KEY (distillery_product) REFERENCES [dbo].[CatalogDistillery] (id_Distillery),
 	FOREIGN KEY (container_product)	REFERENCES [dbo].[CatalogContainer] ([id_Container])
@@ -44,11 +45,22 @@ CREATE TABLE Client (
     location_client GEOGRAPHY NOT NULL,
 	location_clientText AS location_client.STAsText(),
 	email_client VARCHAR (64) NOT NULL,
-	subscription_client INT NOT NULL,
+	subscription_client INT NOT NULL DEFAULT 4,
 	FOREIGN KEY (country_client) REFERENCES [dbo].[CatalogCountry] ([id_Country]),
 	FOREIGN KEY (subscription_client) REFERENCES [dbo].[CatalogSubscription] ([id_subscription])
 );
 
+--LOCATIONXCLIENT
+CREATE TABLE LocationXClient (
+    id_locationXClient INT PRIMARY KEY IDENTITY (1, 1),
+    id_client VARCHAR (50) NOT NULL,
+	location_client GEOGRAPHY NOT NULL,
+	location_clientText AS location_client.STAsText(),
+);
+
+ALTER TABLE Client ADD  location_client GEOGRAPHY,
+						location_clientText AS location_client.STAsText()
+FOREIGN KEY ([user_credentials]) REFERENCES [dbo].[Users] ([id_user])
 --USER
 CREATE TABLE Users (
     id_user INT PRIMARY KEY IDENTITY (1, 1),
@@ -60,3 +72,4 @@ CREATE TABLE Users (
 	FOREIGN KEY (type_user) REFERENCES [dbo].[CatalogUserType] ([id_UserType]),
 	FOREIGN KEY (client_user) REFERENCES Client (id_client)
 );
+
