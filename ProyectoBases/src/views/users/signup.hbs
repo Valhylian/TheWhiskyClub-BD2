@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        Account Register 
+      </div>
+      <div class="card-body">
+        <form action="/users/signup" method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{name}}" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username" value="{{username}}" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email" value="{{email}}" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" value="{{password}}" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" value="{{confirm_password}}" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Country of residence</label><br>
+            <select class="form-select form-select-lg mb-2" aria-label=".form-select-lg example" name="country">
+             <option value=1>Germany</option>
+             <option value=2>United States</option>
+             <option value=3>Japan</option>
+          </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Subscription type</label><br>
+            <select class="form-select form-select-lg mb-2" aria-label=".form-select-lg example" name="subscription">
+             <option value=1>None</option>
+             <option value=2>Short Glass</option>
+             <option value=3>Gleincairn</option>
+             <option value=4>Master Distiller</option>
+          </select>
+          </div>
+          <button class="btn btn-primary btn-block">
+            Signup 
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
