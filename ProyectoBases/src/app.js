@@ -10,6 +10,7 @@ import session from "express-session";
 import flash from "connect-flash"
 import passport from "passport";
 import config from "./config";
+import Handlebars from 'handlebars'
 
 const app = express();
 import('./config/passport');
@@ -51,5 +52,14 @@ app.use((req, res, next) => {
 // Routes
 app.use(userRoutes);
 app.use(productRoutes);
+
+//Helpers
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+    if (arg1 === arg2) {
+        return options.fn(this)
+    } else {
+        return options.inverse(this)
+    }
+})
 
 export default app;

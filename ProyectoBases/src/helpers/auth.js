@@ -8,6 +8,18 @@ helpers.isAuthenticated = (req, res, next)  => {
     res.redirect('/users/signin');
 };
 
+helpers.isClient = (req, res, next)  => {
+    if(req.isAuthenticated()){
+        if(req.user.userType == 1){
+        return next();
+        }
+        req.flash('error_msg','This operation is exclusive to clients');
+        res.redirect('/');
+    }
+    req.flash('error_msg','You need to be logged in to access this section');
+    res.redirect('/users/signin');
+};
+
 helpers.isAdmin = (req, res, next)  => {
     if(req.isAuthenticated()){
         if(req.user.userType == 2){

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getConnection, querys, sql } from "../database";
 import passport from "passport";
-import { isAuthenticated } from "../helpers/auth";
+import { isAuthenticated, isClient, isAdmin } from "../helpers/auth";
 import { changeUserSubscription } from "../controllers/users.controller"
 
 const router = Router();
@@ -11,7 +11,7 @@ const router = Router();
 //router.post("/users", createNewUser);
 
 
-router.get('/users/subscription',isAuthenticated, (req,res) =>{
+router.get('/users/subscription',isClient, (req,res) =>{
   res.render('users/subscription');
 });
 
@@ -29,7 +29,7 @@ router.get('/', (req,res) =>{
 });
 
 
-router.post('/users/changeSubscription',isAuthenticated,changeUserSubscription);
+router.post('/users/changeSubscription',isClient,changeUserSubscription);
 
 
 router.get('/users/logout', function(req, res, next) {
