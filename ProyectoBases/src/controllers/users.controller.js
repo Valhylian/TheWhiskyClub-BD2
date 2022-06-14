@@ -24,3 +24,18 @@ export const createNewUser = async (req, res) => {
     res.status(500).json(error);
 }
   };
+
+export const changeUserSubscription = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool.request()
+    .input('newPlan', req.body.newSubscription)
+    .input('username', req.user.username)
+    .execute(`ChangeAccountSubscription`);
+    req.flash("success_msg", "You have changed your account plan.");
+    res.redirect("/");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};

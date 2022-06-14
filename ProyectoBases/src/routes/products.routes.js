@@ -1,25 +1,15 @@
 import { Router } from "express";
+import { isAuthenticated } from "../helpers/auth";
 import {
-  getProducts,
-  createNewProduct,
-  getProductById,
-  deleteProductById,
-  getTotalProducts,
-  updateProductById,
+  getAllProducts_NotSpecial,
+  getAllProducts_search,
 } from "../controllers/products.controller";
 
 const router = Router();
+router.get("/products",isAuthenticated, getAllProducts_NotSpecial);
+router.get("/products/getProductsSearch",isAuthenticated,getAllProducts_search);
 
-router.get("/products", getProducts);
-
-router.post("/products", createNewProduct);
-
-router.get("/products/count", getTotalProducts);
-
-router.get("/products/:id", getProductById);
-
-router.delete("/products/:id", deleteProductById);
-
-router.put("/products/:id", updateProductById);
+//CONSULT PRODUCTS
+router.post('/products/consult',isAuthenticated,getAllProducts_search);
 
 export default router;

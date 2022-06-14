@@ -3,13 +3,16 @@ import path from "path";
 import { engine } from 'express-handlebars';
 import cors from "cors";
 import userRoutes from "./routes/users.routes";
+import productRoutes from "./routes/products.routes";
 import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
-
+import flash from "connect-flash"
+import passport from "passport";
 import config from "./config";
 
 const app = express();
+import('./config/passport');
 
 // settings
 app.set('port', config.port);
@@ -33,8 +36,20 @@ app.use(session({
     resave: true,
     saveUninitialized: true 
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash("success_msg");
+    res.locals.error_msg = req.flash("error_msg");
+    res.locals.error = req.flash("error");
+    res.locals.user = req.user || null;
+    next();
+  });
 
 // Routes
 app.use(userRoutes);
+app.use(productRoutes);
 
 export default app;

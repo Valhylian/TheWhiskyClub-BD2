@@ -1,0 +1,53 @@
+
+<div class="'col-md-4 mx-auto">
+
+    <h3>LIST OF PRODUCTS</h3>
+
+  <table class ="table">
+        <thead>
+            <tr>
+                <th>Product&nbsp;Code</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Aged</th>
+                <th>Destilley</th>
+                <th>Container</th>
+                <th>Price</th>
+                <th>Money Type</th>
+                <th>Amount</th>
+                <th>Nearby&nbsp;Store</th>
+                <th>Country</th>
+                <th>Distance</th>
+                <th>Special</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class = "collection with-header">
+            
+            {{#each productsResult}}
+                <tr>
+                <td>{{product_code}}</td>
+				<td>{{product_name}}</td>
+				<td>{{product_type}}</td>
+                <td>{{product_aged}}</td>  
+                <td>{{destilley}}</td>
+                <td>{{product_container}}</td>
+                <td>{{product_price}}</td>
+                <td>{{money_type}}</td>
+                <td>{{amount}}</td>
+                <td>{{nearbyStore}}</td>
+                <td>{{nearbyCountry}}</td>
+                <td>{{nearbyLocation}}</td>
+                <td>{{statusProduct}}</td>
+            </tr>
+   
+             {{/each}}
+
+        </tbody>
+    
+
+</div>
+
+
+

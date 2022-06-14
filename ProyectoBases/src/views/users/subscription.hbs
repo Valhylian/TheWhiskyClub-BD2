@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h1 class="h4">
+                    Change subscription
+                </h1>
+            </div>
+            <div class="card-body">
+                <div class="form-group"></div>
+                <form action="/users/changeSubscription" method="POST">
+                    <label for="exampleFormControlSelect1">Subscription type</label><br>
+                    <select class="form-select form-select-lg mb-2" aria-label=".form-select-lg example"
+                        name="newSubscription">
+                        <option value=1>None</option>
+                        <option value=2>Short Glass</option>
+                        <option value=3>Gleincairn</option>
+                        <option value=4>Master Distiller</option>
+                    </select>
+            </div>
+            <button class="btn btn-primary btn-block">
+                Change
+            </button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

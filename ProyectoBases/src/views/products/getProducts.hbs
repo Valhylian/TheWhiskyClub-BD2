@@ -1,0 +1,103 @@
+<div class="'col-md-4 mx-auto">
+    <div class = "card" style="width: 72rem;">
+        <div class="'card-header" >
+            <h3>CONSULT PRODUCT</h3>
+        </div>
+        <div class="card-body">
+            <form action="/products/consult" method = "POST">
+            <div class="form-group">
+                <select name="ids_ProductType" class="form-control" id="ids_ProductType">
+                <option value=0 selected >NO TYPE</option>
+                {{#each typesResult}}
+                    <option value={{id_ProductType}}>{{name_ProductType}}</option>
+                {{/each}}
+            </select>
+            </div>
+            <div class="form-group">
+                <input type="text" name="poductName" class="form-control"
+                placeholder="Product Name">
+            </select>
+            <div class="form-group">
+                <input type="number" name="lowPrice" class="form-control"
+                placeholder="Lower Price">
+            </select>
+            <div class="form-group">
+                <input type="number" name="higPrice" class="form-control" 
+                placeholder="Higher Price">
+            </select>
+            </div>
+            <div class="form-group">
+                <input type="number" name="distance" class="form-control"
+                placeholder="Distance">
+            </select>
+            </div>
+
+            <div class="form-group">
+                
+                <select name="order" class="form-control" id="order">
+                <option value=0 selected>Default Order</option>
+                <option value=1>Upward Order</option>
+                <option value=2>Descendant Order</option>
+            </select>
+            </div>
+
+            <div class="form-group">
+                <button class = "btn btn-primary btn-block" type="submit">
+                    CONSULT
+                </button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<br></br>
+<div class="'col-md-4 mx-auto">
+
+    <h3>LIST OF PRODUCTS</h3>
+
+  <table class ="table">
+        <thead>
+            <tr>
+                <th>Product&nbsp;Code</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Aged</th>
+                <th>Destilley</th>
+                <th>Container</th>
+                <th>Price</th>
+                <th>Money Type</th>
+                <th>Amount</th>
+                <th>Nearby&nbsp;Store</th>
+                <th>Country</th>
+                <th>Distance KM</th>
+                <th>Special</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class = "collection with-header">
+            
+            {{#each productsResult}}
+                <tr>
+                <td>{{product_code}}</td>
+				<td>{{product_name}}</td>
+				<td>{{product_type}}</td>
+                <td>{{product_aged}}</td>  
+                <td>{{destilley}}</td>
+                <td>{{product_container}}</td>
+                <td>{{product_price}}</td>
+                <td>{{money_type}}</td>
+                <td>{{amount}}</td>
+                <td>{{nearbyStore}}</td>
+                <td>{{nearbyCountry}}</td>
+                <td>{{nearbyDistance}}</td>
+                <td>{{statusProduct}}</td>
+            </tr>
+   
+             {{/each}}
+
+        </tbody>
+</div>
+
+
+
