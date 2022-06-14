@@ -7,6 +7,7 @@ passport.use(new localStrategy(
   async (username, password, done) => {
     let clientEmail = '';
     let clientID = 0;
+    let userType = 0;
     try {
       const pool = await getConnection();
       const result = await pool
@@ -25,10 +26,11 @@ passport.use(new localStrategy(
       const loginInfo = result.recordset[0];
       clientEmail = loginInfo.emailClient;
       clientID = loginInfo.idClient;
+      userType = loginInfo.userType;
     } catch (error) {
       console.log(error);
     }
-    let user = { username, clientEmail, clientID }
+    let user = { username, clientEmail, clientID, userType };
     return done(null, user, { message: "You are now logged in." });
   }));
 
