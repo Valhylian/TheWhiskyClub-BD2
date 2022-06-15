@@ -40,12 +40,7 @@
                 <td>{{nearbyCountry}}</td>
                 <td>{{nearbyLocation}}</td>
                 <td>{{statusProduct}}</td>
-                <form action="/products/addToCart" method="POST" target="uploader_iframe">
-                    <input type="hidden" name="idProduct" value={{product_code}}></td>
-                    <td><input type="number" min="1" value="1" name="quantity" class="form-control" onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"></td>
-                    <td><button class="btn btn-primary">Add</button></td>
-                </form>
-                <iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
+                
                 
             </tr>
 

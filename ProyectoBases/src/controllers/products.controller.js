@@ -23,7 +23,7 @@ export const getAllProducts_NotSpecial = async (req, res) => {
 export const addProductToCart = (req, res) => {
   const { idProduct, quantity } = req.body;
   var boughtProductInfo = {
-    idProduct: idProduct,
+    idProduct: Number(idProduct),
     quantity: Number(quantity),
   };
   JSON.stringify(boughtProductInfo);
