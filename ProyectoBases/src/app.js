@@ -5,6 +5,7 @@ import cors from "cors";
 import userRoutes from "./routes/users.routes";
 import productRoutes from "./routes/products.routes";
 import purchaseRoutes from "./routes/purchase.routes";
+import adminRoutes from "./routes/admin.routes";
 import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
@@ -12,6 +13,8 @@ import flash from "connect-flash"
 import passport from "passport";
 import config from "./config";
 import Handlebars from 'handlebars'
+import multer from "multer";
+const fs = require('fs')
 
 const app = express();
 import('./config/passport');
@@ -26,6 +29,9 @@ app.engine(".hbs", engine({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+
+
+ 
 
 // Middlewares
 app.use(cors());
@@ -48,12 +54,31 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error");
     res.locals.user = req.user || null;
     next();
-  });
+  }); 
+  
+
+const storage =
+    multer.diskStorage({
+        filename: function (req,file,cb) {
+            cb(null, file.originalname); 
+        },
+        
+    destination: path.join(__dirname,'public/uploads')
+});
+
+
+app.use(multer({
+    storage,
+    dest: path.join(__dirname,'public/uploads')
+}).single('image'));
 
 // Routes
 app.use(userRoutes);
 app.use(productRoutes);
 app.use(purchaseRoutes);
+app.use(adminRoutes);
+
+
 
 //Helpers
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {

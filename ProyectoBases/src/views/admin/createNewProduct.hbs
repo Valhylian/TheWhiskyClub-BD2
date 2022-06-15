@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                Create a product
+            </div>
+            <div class="card-body">
+                <form action="/uploadNewProduct" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Product name" value="{{name}}"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <select name="idProductType" class="form-control" id="id_Store">
+                            {{#each productTypeResult}}
+                            <option value={{id_ProductType}}>{{name_ProductType}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="idDistillery" class="form-control" id="id_Store">
+                            {{#each distilleryResult}}
+                            <option value={{id_Distillery}}>{{name_Distillery}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="idContainer" class="form-control" id="id_Store">
+                            {{#each containerResult}}
+                            <option value={{id_Container}}>{{description_Container}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" min="0" name="price" class="form-control"
+                            onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"
+                            placeholder="Price (in dollars)" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" min="0" name="age" class="form-control"
+                            onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"
+                            placeholder="Age (in years)" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="image" required>
+                    </div>
+                    <h4>Add to stores</h4>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Store ID</th>
+                                <th>Store</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTable" class="collection with-header">
+
+                            {{#each storeResult}}
+                            <tr>
+                                <td class="hidden">{{id_store}}</td>
+                                <td>{{name_store}}</td>
+
+                                <td><input type="number" min="1" value="1" name="quantity" class="form-control"
+                                        onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"
+                                        required>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+
+                        <button type="submit" class="btn btn-primary">Create and add to stores</button>
+                        </br>
+                        </br>
+                    </table>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function onlyNumberKey(evt) {
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+    </script>
+</div>
