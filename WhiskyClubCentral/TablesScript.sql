@@ -73,3 +73,53 @@ CREATE TABLE Users (
 	FOREIGN KEY (client_user) REFERENCES Client (id_client)
 );
 
+
+USE [WhiskyClubCentral]
+GO
+
+INSERT INTO [dbo].[CatalogStatusPurchase]
+           ([name_StatusPurchase])
+     VALUES
+           (<name_StatusPurchase, varchar(64),>)
+GO
+
+USE [WhiskyClubCentral]
+GO
+
+INSERT INTO [dbo].[CatalogStatusPurchase]
+           ([id_StatusPurchase]
+           ,[name_StatusPurchase])
+     VALUES
+           (1
+           ,'Pending'),
+		   (2
+           ,'Processed')
+GO
+
+
+
+--PURCHASE
+CREATE TABLE purchase (
+    id_purchase INT PRIMARY KEY IDENTITY (1, 1),
+    client_purchase INT NOT NULL,
+	date_purchase DATE NOT NULL,
+	location_client GEOGRAPHY NOT NULL,
+	subtotal MONEY NOT NULL DEFAULT 0,
+	shipping MONEY NOT NULL DEFAULT 0,
+	total MONEY NOT NULL DEFAULT 0,
+	id_PurchasingManager INT,
+	id_Dealer INT,
+	status_purchase INT NOT NULL DEFAULT 1,
+	FOREIGN KEY (client_purchase) REFERENCES [dbo].[Client] ([id_client]),
+	FOREIGN KEY (status_purchase) REFERENCES CatalogStatusPurchase (id_StatusPurchase)
+);
+
+CREATE TABLE purchaseXProduct (
+    id_purchaseXProduct INT PRIMARY KEY IDENTITY (1, 1),
+    id_purchase INT NOT NULL,
+	id_product INT NOT NULL,
+	amount INT NOT NULL,
+	subtotal MONEY NOT NULL
+	FOREIGN KEY (id_purchase) REFERENCES purchase (id_purchase),
+	FOREIGN KEY (id_product) REFERENCES [dbo].[Product] ([id_product])
+);
