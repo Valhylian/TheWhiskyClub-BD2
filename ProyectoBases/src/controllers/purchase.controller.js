@@ -1,6 +1,9 @@
 import { getConnection, querys, sql } from "../database";
 
 export const getProducts_store = async (req, res) => {
+  let errors = [];
+  errors.push({ text: "Your cart has been emptied!" });
+  req.user.shoppingCart = [];
   try {
     const pool = await getConnection();
     const result = await pool.request()
@@ -13,7 +16,8 @@ export const getProducts_store = async (req, res) => {
       .execute(`returnStores`);
 
     const typesResult = resultStore.recordset;
-    res.render('purchase/purchase', { productsResult, typesResult });
+    req.flash("error_msg", "Your cart has been emptied!");
+    res.render('purchase/purchase', { productsResult, typesResult,errors });
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -37,6 +41,9 @@ export const completePurchase_store = async (req, res) => {
 };
 
 export const loadProducts_store = async (req, res) => {
+  let errors = [];
+  errors.push({ text: "Your cart has been emptied!" });
+  req.user.shoppingCart = [];
   try {
     const pool = await getConnection();
     const { id_Store } = req.body;
@@ -51,7 +58,8 @@ export const loadProducts_store = async (req, res) => {
       .execute(`returnStores`);
 
     const typesResult = resultStore.recordset;
-    res.render('purchase/purchase', { productsResult, typesResult, id_Store });
+    req.flash("error_msg", "Your cart has been emptied!");
+    res.render('purchase/purchase', { productsResult, typesResult, id_Store,errors });
   } catch (error) {
     res.status(500);
     res.send(error.message);
