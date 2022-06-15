@@ -1,0 +1,84 @@
+<div class="'col-md-4 mx-auto">
+    <div class = "card" style="width: 72rem;">
+        <div class="'card-header" >
+            <h3>CONSULT BY STORE</h3>
+        </div>
+        <div class="card-body">
+            <form action="/purchase" method = "POST">
+            <div class="form-group">
+                <select name="id_Store" class="form-control" id="id_Store">
+                    <option value=1 selected >WhiskyClub Germany 1</option>
+                    {{#each typesResult}}
+                        <option value={{id_store}}>{{name_store}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class = "btn btn-primary btn-block" type="submit">
+                    CONSULT
+                </button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<br></br>
+
+
+<div class="'col-md-4 mx-auto">
+
+    <h3>LIST OF PRODUCTS</h3>
+
+  <table class ="table">
+        <thead>
+            <tr>
+                <th>Product&nbsp;Code</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Aged</th>
+                <th>Destilley</th>
+                <th>Container</th>
+                <th>Price</th>
+                <th>Money Type</th>
+                <th>Amount</th>
+                <th>Nearby&nbsp;Store</th>
+                <th>Special</th>
+                <th>Quantity</th>
+                <th>Add to cart</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class = "collection with-header">
+            
+            {{#each productsResult}}
+                <tr>
+                <td>{{product_code}}</td>
+				<td>{{product_name}}</td>
+				<td>{{product_type}}</td>
+                <td>{{product_aged}}</td>  
+                <td>{{destilley}}</td>
+                <td>{{product_container}}</td>
+                <td>{{product_price}}</td>
+                <td>{{money_type}}</td>
+                <td>{{amount}}</td>
+                <td>{{nearbyStore}}</td>
+                <td>{{statusProduct}}</td>
+            
+                <form action="/products/addToCart" method="POST" target="uploader_iframe">
+                    <input type="hidden" name="idProduct" value={{product_code}}></td>
+                    <td><input type="number" min="1" value="1" name="quantity" class="form-control" onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"></td>
+                    <td><button class="btn btn-primary">Add</button></td>
+                </form>
+                <iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
+            </tr>
+             {{/each}}
+
+        </tbody>
+    
+
+</div>
+
+
+

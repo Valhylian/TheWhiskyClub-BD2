@@ -4,6 +4,7 @@ import { engine } from 'express-handlebars';
 import cors from "cors";
 import userRoutes from "./routes/users.routes";
 import productRoutes from "./routes/products.routes";
+import purchaseRoutes from "./routes/purchase.routes";
 import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 // Routes
 app.use(userRoutes);
 app.use(productRoutes);
+app.use(purchaseRoutes);
 
 //Helpers
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
