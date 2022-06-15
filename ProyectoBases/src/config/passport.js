@@ -8,6 +8,7 @@ passport.use(new localStrategy(
     let clientEmail = '';
     let clientID = 0;
     let userType = 0;
+    let shoppingCart = [];
     try {
       const pool = await getConnection();
       const result = await pool
@@ -30,7 +31,7 @@ passport.use(new localStrategy(
     } catch (error) {
       console.log(error);
     }
-    let user = { username, clientEmail, clientID, userType };
+    let user = { username, clientEmail, clientID, userType, shoppingCart};
     return done(null, user, { message: "You are now logged in." });
   }));
 

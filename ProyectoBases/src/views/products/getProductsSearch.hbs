@@ -1,9 +1,8 @@
-
 <div class="'col-md-4 mx-auto">
 
     <h3>LIST OF PRODUCTS</h3>
 
-  <table class ="table">
+    <table class="table">
         <thead>
             <tr>
                 <th>Product&nbsp;Code</th>
@@ -19,18 +18,19 @@
                 <th>Country</th>
                 <th>Distance</th>
                 <th>Special</th>
+                <th>Quantity</th>
                 <th></th>
             </tr>
         </thead>
 
-        <tbody id="productTable" class = "collection with-header">
-            
+        <tbody id="productTable" class="collection with-header">
+
             {{#each productsResult}}
-                <tr>
+            <tr>
                 <td>{{product_code}}</td>
-				<td>{{product_name}}</td>
-				<td>{{product_type}}</td>
-                <td>{{product_aged}}</td>  
+                <td>{{product_name}}</td>
+                <td>{{product_type}}</td>
+                <td>{{product_aged}}</td>
                 <td>{{destilley}}</td>
                 <td>{{product_container}}</td>
                 <td>{{product_price}}</td>
@@ -40,14 +40,26 @@
                 <td>{{nearbyCountry}}</td>
                 <td>{{nearbyLocation}}</td>
                 <td>{{statusProduct}}</td>
+                <form action="/products/addToCart" method="POST" target="uploader_iframe">
+                    <input type="hidden" name="idProduct" value={{product_code}}></td>
+                    <td><input type="number" min="1" value="1" name="quantity" class="form-control" onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"></td>
+                    <td><button class="btn btn-primary">Add</button></td>
+                </form>
+                <iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
+                
             </tr>
-   
-             {{/each}}
+
+            {{/each}}
 
         </tbody>
-    
 
+        <script>
+            function onlyNumberKey(evt) {
+                // Only ASCII character in that range allowed
+                var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                    return false;
+                return true;
+            }
+        </script>
 </div>
-
-
-
