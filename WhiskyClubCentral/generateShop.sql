@@ -1,5 +1,13 @@
 USE [WhiskyClubCentral]
 GO
+
+/****** Object:  StoredProcedure [dbo].[generatePurchase]    Script Date: 6/15/2022 11:31:44 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE PROCEDURE [dbo].[generatePurchase]
 @jsonProducts_ VARCHAR (MAX),
 @idStore_ INT,
@@ -261,7 +269,7 @@ DECLARE @errorTable TABLE
 
 			--RETORNAR ERRORES
 			UPDATE @results SET purchase_total = (SELECT total FROM [WhiskyClubCentral].[dbo].[purchase] WHERE [id_purchase]=@lastPurchase_id)
-			SELECT * FROM @products
+			SELECT * FROM @results
 			RETURN 0;
 
 		END--END GERMANY
@@ -515,41 +523,4 @@ RETURN @error
 END
 GO
 
---EXEC [returnPurchase]
-CREATE PROCEDURE [dbo].[returnPurchase]
-AS
-BEGIN
-	SET NOCOUNT ON; 
-DECLARE	
-	@error INT
-
-SELECT [id_purchase]
-      ,[name_client]
-      ,[date_purchase]
-      ,([purchase].[location_client].STAsText()) AS direction
-      ,[subtotal]
-      ,[shipping]
-      ,[total]
-      ,[id_PurchasingManager]
-      ,[id_Dealer]
-      ,[name_StatusPurchase]
-      ,[distance]
-      ,[moneyType]
-  FROM [dbo].[purchase] 
-  INNER JOIN [dbo].[Client] ON  [client_purchase] = [id_client]
-  INNER JOIN [dbo].[CatalogStatusPurchase] ON [status_purchase] = [id_StatusPurchase]
-  WHERE [id_purchase] = (SELECT MAX([id_purchase]) FROM [dbo].[purchase] )
-
-print @error;
-RETURN @error
-END
-GO
-
---PURCHASE
-
-USE [WhiskyClubCentral]
-GO
-
-DECLARE @jsonShopping VARCHAR(128)= '[{"idProduct":3,"quantity":1},{"idProduct":4,"quantity":1}]'
---EXEC generatePurchase @jsonProducts_ = @jsonShopping, @idStore_ = 1, @idClient_  =1
 
