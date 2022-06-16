@@ -1,0 +1,74 @@
+<div class="'col-md-4 mx-auto">
+
+    <h3>PURCHASE CONFIRMATION</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Purchase&nbsp;Code</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Direction</th>
+                <th>Subtotal</th>
+                <th>Shipping</th>
+                <th>Total</th>
+                <th>Money Type</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="factTable" class="collection with-header">
+
+            {{#each purchaseInfo}}
+            <tr>
+                <td>{{id_purchase}}</td>
+                <td>{{name_client}}</td>
+                <td>{{date_purchase}}</td>
+                <td>{{direction}}</td>
+                <td>{{subtotal}}</td>
+                <td>{{shipping}}</td>
+                <td>{{total}}</td>
+                <td>{{moneyType}}</td>
+                <td>{{name_StatusPurchase}}</td>
+            </tr>
+
+            {{/each}}
+
+        </tbody>
+    </table>
+    
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Store</th>
+                <th>Product</th>
+                <th>Product Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Money Type</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+
+            {{#each productsResult}}
+            <tr>
+
+                <td>{{store_name}}</td>
+                <td>{{product_name}}</td>
+                <td>{{product_priceInd}}</td>
+                <td>{{product_amount}}</td>
+                <td>{{product_subtotal}}</td>
+                <td>{{moneyType}}</td>
+                <td>{{product_success}}</td>
+            </tr>
+
+            {{/each}}
+
+        </tbody>
+    </table>
+
+</div>

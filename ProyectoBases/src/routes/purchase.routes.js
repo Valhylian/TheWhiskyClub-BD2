@@ -7,6 +7,7 @@ import {
 } from "../controllers/purchase.controller";
 
 const router = Router();
+
 router.get("/purchase",isClient,getProducts_store);
 
 router.post("/purchase",isClient,loadProducts_store);

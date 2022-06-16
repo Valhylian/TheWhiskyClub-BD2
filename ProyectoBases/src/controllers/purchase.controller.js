@@ -22,10 +22,12 @@ export const getProducts_store = async (req, res) => {
     res.status(500);
     res.send(error.message);
   }
+
 };
 
 export const completePurchase_store = async (req, res) => {
   console.log(req.body.idStoreBought);
+  console.log("hola");
   const shoppingCart = req.user.shoppingCart;
   let result = shoppingCart.reduce((r, { idProduct, quantity }) => {
     var temp = r.find(o => o.idProduct === idProduct);
@@ -37,7 +39,34 @@ export const completePurchase_store = async (req, res) => {
     return r;
   }, []);
   console.log(JSON.stringify(result));
-  res.send('success');
+  const jsonProducts_ = JSON.stringify(result)
+  //GENERATE PURCHASE
+  try {
+    let idStoreSelected = req.body.idStoreBought;
+    if(idStoreSelected == ''){
+      idStoreSelected = 1;
+      console.log('paso');
+    }
+    const pool = await getConnection();
+    const result = await pool.request()
+      .input('idClient_', req.user.clientID)
+      .input('jsonProducts_', jsonProducts_)
+      .input('idStore_', idStoreSelected)
+      .execute(`generatePurchase`);
+    const productsResult = result.recordset; //RETURN ERRORS TABLE
+    console.log("productsResult")
+    console.log(result)
+    //INFO PURCHASE
+    const resultTypes = await pool.request()
+      .execute(`returnPurchase`);
+    const purchaseInfo = resultTypes.recordset;
+    
+    res.render('purchase/purchaseConfirm', { productsResult,purchaseInfo});
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+
 };
 
 export const loadProducts_store = async (req, res) => {
