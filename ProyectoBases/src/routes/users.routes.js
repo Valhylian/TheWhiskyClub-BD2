@@ -81,7 +81,7 @@ router.post('/users/signup', async (req,res) =>{
           .input('id_subscription', req.body.subscription)
           .execute(`CreateNewUser`);
       const newUser = result.recordset;
-      console.log(result.returnValue);
+      //console.log(result.returnValue);
       if (result.returnValue != 0) {
         if(result.returnValue == 2){
           req.flash("error_msg", "The username is already taken, please choose a different one" );
