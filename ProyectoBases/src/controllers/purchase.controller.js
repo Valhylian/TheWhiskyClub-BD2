@@ -77,7 +77,7 @@ export const completePurchase_store = async (req, res) => {
       .execute(`returnPurchase`);
     const purchaseInfo = resultTypes.recordset;
     
-    //SEN MAIL------------------------------------------------------------------------
+    //SEND MAIL------------------------------------------------------------------------
  
 
     //BODY EMAIL

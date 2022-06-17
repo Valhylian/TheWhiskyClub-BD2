@@ -55,7 +55,8 @@ var mailOptions = {
 });*/
 
 
-
+//Satich paths
+app.use(express.static(__dirname + '/public/css'));
 
 
 // settings

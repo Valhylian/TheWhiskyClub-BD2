@@ -4,8 +4,16 @@ helpers.isAuthenticated = (req, res, next)  => {
     if(req.isAuthenticated()){
         return next();
     }
-    req.flash('error_msg','You need to be logged in to access this section');
+    req.flash('error_msg','You need to be logged in order to access this section');
     res.redirect('/users/signin');
+};
+
+helpers.isNotAuthenticated = (req, res, next)  => {
+    if(!req.isAuthenticated()){
+        return next();
+    }
+    req.flash('error_msg','You need to be logged out in order to access this section');
+    res.redirect('/');
 };
 
 helpers.isClient = (req, res, next)  => {
@@ -16,7 +24,7 @@ helpers.isClient = (req, res, next)  => {
         req.flash('error_msg','This operation is exclusive to clients');
         res.redirect('/');
     }
-    req.flash('error_msg','You need to be logged in to access this section');
+    req.flash('error_msg','You need to be logged in order to access this section');
     res.redirect('/users/signin');
 };
 
@@ -28,7 +36,7 @@ helpers.isAdmin = (req, res, next)  => {
         req.flash('error_msg','This account does does not have access to this section');
         res.redirect('/');
     }
-    req.flash('error_msg','You need to be logged in to access this section');
+    req.flash('error_msg','You need to be logged in order to access this section');
     res.redirect('/users/signin');
 };
 

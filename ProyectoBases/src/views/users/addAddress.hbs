@@ -1,0 +1,79 @@
+<div class="'col-md-4 mx-auto">
+  <div class="card" style="width: 72rem;">
+    <div class="card-header">
+      <br>
+      <h3>&nbsp&nbspAdd Address</h3>
+      <h6>&nbsp&nbsp&nbsp&nbsp Please click on the map where you want your address to be set at.
+        </br>&nbsp&nbsp&nbsp&nbsp Move around the map by keeping the right click pressed over the map and moving the
+        cursor.
+        </br>&nbsp&nbsp&nbsp&nbsp&nbspZoom by in and out with the controls at the bottom right of the map or using the
+        scroll wheel.</h6>
+    </div>
+    <div class="card-body">
+      <form action="/users/sendMarkerInfo" method="POST">
+        <div id="map" name="map"></div>
+        <input type="hidden" name="markerPositionLat" id="markerPositionLat" required>
+        <input type="hidden" name="markerPositionLong" id="markerPositionLong" required>
+        <br>
+        <div class="form-group">
+          <input type="text" name="addressName" id="addressName" class="form-control" placeholder="Name of the address"
+            required>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit" id="buttonSubmit">
+            ADD
+          </button>
+        </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<script>
+  var positionMarker;
+  var marker;
+  //document.getElementById('buttonSubmit').onclick = catchCoordinates;
+  function initMap() {
+    var latlng = new google.maps.LatLng(42.55308, 9.140625);
+
+
+    var myOptions = {
+      zoom: 2,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      streetViewControl: false,
+      mapTypeControl: false,
+    };
+
+    var map = new google.maps.Map(document.getElementById("map"),
+      myOptions);
+
+
+    google.maps.event.addListener(map, 'click', function (event) {
+      placeMarker(event.latLng);
+    });
+
+    function placeMarker(location) {
+
+
+      if (marker == undefined) {
+        marker = new google.maps.Marker({
+          position: location,
+          map: map,
+          animation: google.maps.Animation.DROP,
+        });
+      }
+      else {
+        marker.setPosition(location);
+      }
+      map.setCenter(location);
+      document.getElementById('markerPositionLat').value = marker.position.lat().toFixed(9);
+      document.getElementById('markerPositionLong').value = marker.position.lng().toFixed(9);
+    }
+
+  }
+
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0lrXJv0Ulmnzvmc2QNCRNYWq2tM0q87o&callback=initMap"></script>

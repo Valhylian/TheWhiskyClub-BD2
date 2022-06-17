@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { getConnection, querys, sql } from "../database";
 import passport from "passport";
-import { isAuthenticated, isClient, isAdmin } from "../helpers/auth";
-import { changeUserSubscription } from "../controllers/users.controller"
+import { isAuthenticated, isNotAuthenticated, isClient, isAdmin } from "../helpers/auth";
+import { changeUserSubscription, updatePreferredAddress, addLocation,getInfoChangeAddress } from "../controllers/users.controller"
 
 const router = Router();
 
@@ -11,45 +11,56 @@ const router = Router();
 //router.post("/users", createNewUser);
 
 
-router.get('/users/subscription',isClient, (req,res) =>{
+router.get('/users/subscription', isClient, (req, res) => {
   res.render('users/subscription');
 });
 
+router.get('/users/addAdress', isClient, (req, res) => {
+  res.render('users/addAddress');
+});
 
-router.get('/users/signin', (req,res) =>{
+router.get('/users/changeSelectedAddress',isClient, getInfoChangeAddress);
+
+router.post('/users/updateSelectedAddress',isClient, updatePreferredAddress);
+
+router.get('/users/signin', isNotAuthenticated, (req, res) => {
   res.render('users/signin');
 });
 
-router.get('/users/signup', (req,res) =>{
+router.get('/users/signup', isNotAuthenticated, (req, res) => {
   res.render('users/signup');
 });
 
-router.get('/', (req,res) =>{
+router.get('/', (req, res) => {
   res.render('index');
 });
 
 
-router.post('/users/changeSubscription',isClient,changeUserSubscription);
+router.post('/users/changeSubscription', isClient, changeUserSubscription);
+
+router.post('/users/sendMarkerInfo', isClient, addLocation);
 
 
-router.get('/users/logout', function(req, res, next) {
-  req.logout(function(err) {
+router.get('/users/logout', function (req, res, next) {
+  req.logout(function (err) {
     if (err) { return next(err); }
     res.redirect('/');
   });
 });
 
-router.post('/users/signin', passport.authenticate('local',{
+router.post('/users/signin', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/signin',
   failureFlash: true,
   successFlash: true
 }));
 
-router.post('/users/signup', async (req,res) =>{
+router.post('/users/signup', async (req, res) => {
   let errors = [];
-  const {name,username,email,password,confirm_password,country,subscription} = req.body;
-  if(password != confirm_password){
+  const { name, username, email, password, confirm_password, country, subscription, markerPositionLat, markerPositionLong, addressName } = req.body;
+  Number(markerPositionLat);
+  Number(markerPositionLong);
+  if (password != confirm_password) {
     errors.push({ text: "Passwords do not match." });
   }
   if (password.length < 6) {
@@ -67,42 +78,52 @@ router.post('/users/signup', async (req,res) =>{
       subscription
     });
   }
-  else{
-    
+  else {
+
     try {
       const pool = await getConnection();
       const result = await pool
         .request()
-          .input('nickname', req.body.username)
-          .input('password', req.body.password)
-          .input('full_name', req.body.name)
-          .input('country_id', req.body.country)
-          .input('email', req.body.email)
-          .input('id_subscription', req.body.subscription)
-          .execute(`CreateNewUser`);
+        .input('nickname', req.body.username)
+        .input('password', req.body.password)
+        .input('full_name', req.body.name)
+        .input('country_id', req.body.country)
+        .input('email', req.body.email)
+        .input('id_subscription', req.body.subscription)
+        .input('latitude', markerPositionLat)
+        .input('longitude', markerPositionLong)
+        .input('addressName', addressName)
+        .execute(`CreateNewUser`);
       const newUser = result.recordset;
       //console.log(result.returnValue);
-      if (result.returnValue != 0) {
-        if(result.returnValue == 2){
-          req.flash("error_msg", "The username is already taken, please choose a different one" );
-          res.redirect("/users/signup");
-        }
-        else if(result.returnValue == 3){
-          req.flash("error_msg", "The email address is already in use by an account" );
-          res.redirect("/users/signup");
-        }
+      if (markerPositionLat == '' || markerPositionLong == '') {
+        req.flash("error_msg", "Please set the marker by pressing the map before you send the information.");
+        res.redirect("/users/signup");
+        return;
       }
-      else{
+      if (result.returnValue != 0) {
+        if (result.returnValue == 2) {
+          req.flash("error_msg", "The username is already taken, please choose a different one");
+          res.redirect("/users/signup");
+        }
+        else if (result.returnValue == 3) {
+          req.flash("error_msg", "The email address is already in use by an account");
+          res.redirect("/users/signup");
+        }
+        req.flash("error_msg", "There has been an error during the creation process, please remember to click the map to set your address.");
+        res.redirect("/users/signup");
+      }
+      else {
         req.flash("success_msg", "You have registered successfully.");
         res.redirect("/users/signin");
       }
       res.json(newUser);
-      } catch (error) {
-          res.status(500).json(error);
-      }
-      
+    } catch (error) {
+      res.status(500).json(error);
     }
-    
+
+  }
+
 });
 
 

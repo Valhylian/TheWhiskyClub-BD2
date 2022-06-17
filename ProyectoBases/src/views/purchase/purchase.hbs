@@ -69,7 +69,7 @@
                     <input type="hidden" name="idProduct" value={{product_code}}></td>
                     <td><input type="number" min="1" value="1" name="quantity" class="form-control"
                             onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2"></td>
-                    <td><button class="btn btn-primary" onclick="alert('Producto añadido al carrito')">Add</button></td>
+                    <td><button class="btn btn-primary" onclick="alert('Product added to cart.')">Add</button></td>
                 </form>
                 <iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
             </tr>
@@ -81,6 +81,13 @@
 <div>
     <form action="/purchase/completePurchase" method="POST">
         <input type="hidden" name="idStoreBought" value={{id_Store}}></td>
+        <div class="form-group">
+            <select name="idContainer" class="form-control" id="id_Store" required>
+                {{#each containerResult}}
+                <option value={{id_Container}}>{{description_Container}}</option>
+                {{/each}}
+            </select>
+        </div>
         <button class="btn btn-primary">Purchase</button>
     </form>
 
