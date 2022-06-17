@@ -1,0 +1,112 @@
+<!--DIV CONSULTA-->
+
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 72rem;">
+        <div class="'card-header">
+            <h3>CONSULT PURCHASE BY STORE</h3>
+        </div>
+        <div class="card-body">
+            <!-- -->
+            <form action="/processPurchaseConsult" method="POST">
+                <div class="form-group">
+                    <select name="id_Store" class="form-control" id="id_Store">
+                        <!-- SELECT STORE -->
+                        {{#each storeResult}}
+                        <option value={{id_store}}>{{name_store}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        CONSULT
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br></br>
+
+
+<div class="'col-md-4 mx-auto">
+
+    <h3>LIST OF PURCHASE</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Purchase&nbsp;Code</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Direction</th>
+                <th>Subtotal</th>
+                <th>Shipping</th>
+                <th>Total</th>
+                <th>Money Type</th>
+                <th>Status</th>
+
+            </tr>
+        </thead>
+
+        <FORM action="/processPurchase" method="POST">>
+            <br></br>
+            <h5>Select the Purchasing manager:</h5>
+            <select name="id_Dealer" class="form-control" id="id_Dealer">
+                <!-- SELECT STORE -->
+                {{#each dealer}}
+                <option value={{this.id_employee}}>{{this.name_employee}}</option>
+                {{/each}}
+            </select>
+            <br></br>
+            <h5>Select the Dealer:</h5>
+            <select name="id_Manager" class="form-control" id="id_Manager">
+                <!-- SELECT STORE -->
+                {{#each manager}}
+                <option value={{this.id_employee}}>{{this.name_employee}}</option>
+                {{/each}}
+            </select>
+            <br></br>
+            <h5>Select the Purchase Code:</h5>
+            <select name="id_purchase" class="form-control" id="id_purchase">
+                <!-- SELECT STORE -->
+                {{#each purchaseStoreResult}}
+                <option value={{id_purchase}}>{{id_purchase}}</option>
+                {{/each}}
+            </select>
+            <button class="btn btn-primary btn-block" type="submit">
+                PROCESS PURCHASE
+            </button>
+        </FORM>
+
+        <tbody id="purchaseTable" class="collection with-header">
+
+            {{#each purchaseStoreResult}}
+            <tr>
+                <td>{{id_purchase}}</td>
+                <td>{{name_client}}</td>
+                <td>{{date_purchase}}</td>
+                <td>{{direction}}</td>
+                <td>{{subtotal}}</td>
+                <td>{{shipping}}</td>
+                <td>{{total}}</td>
+                <td>{{moneyType}}</td>
+                <td>{{name_StatusPurchase}}</td>
+
+            </tr>
+            {{/each}}
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <script>
+        function onlyNumberKey(evt) {
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+    </script>
+</div>

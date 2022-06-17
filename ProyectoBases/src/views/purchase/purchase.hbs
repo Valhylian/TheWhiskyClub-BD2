@@ -81,13 +81,7 @@
 <div>
     <form action="/purchase/completePurchase" method="POST">
         <input type="hidden" name="idStoreBought" value={{id_Store}}></td>
-        <div class="form-group">
-            <select name="idContainer" class="form-control" id="id_Store" required>
-                {{#each containerResult}}
-                <option value={{id_Container}}>{{description_Container}}</option>
-                {{/each}}
-            </select>
-        </div>
+       
         <button class="btn btn-primary">Purchase</button>
     </form>
 
