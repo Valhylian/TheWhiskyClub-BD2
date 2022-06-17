@@ -6,6 +6,7 @@ import userRoutes from "./routes/users.routes";
 import productRoutes from "./routes/products.routes";
 import purchaseRoutes from "./routes/purchase.routes";
 import adminRoutes from "./routes/admin.routes";
+import employeeRoutes from "./routes/employee.routes";
 import morgan from "morgan";
 import methodOverride from "method-override";
 import session from "express-session";
@@ -101,6 +102,7 @@ app.use(userRoutes);
 app.use(productRoutes);
 app.use(purchaseRoutes);
 app.use(adminRoutes);
+app.use(employeeRoutes);
 
 
 

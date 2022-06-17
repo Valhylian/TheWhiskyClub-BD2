@@ -1,0 +1,73 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            Register Employee
+        </div>
+        <div class="card-body">
+
+
+            <form action="/employe/register" method="POST">
+                <!--NAME-->
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{name}}"
+                        required>
+                </div>
+                <!--JOB-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect3">Job:</label><br>
+                    <select name="id_Job" class="form-control" id="id_Job">
+                        <!-- SELECT STORE -->
+                        {{#each result_jobs}}
+                        <option value={{this.id_job}}>{{this.name_job}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <!--DEPARMENT-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect2">Department:</label><br>
+                    <select name="id_Department" class="form-control" id="id_Department">
+                        {{#each result_department}}
+                        <option value={{this.id_department}}>{{this.name_deparment}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <!--SALARY-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect1">Salary($):</label><br>
+                    <input type="number" min="1" value="1" name="salary" class="form-control"
+                        onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2">
+                </div>
+                <!--STORE-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect4">Store:</label><br>
+                    <select name="id_Store" class="form-control" id="id_Store">
+                        {{#each result_store}}
+                        <option value={{id_store}}>{{name_store}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <button class="btn btn-primary btn-block">
+                    CREATE EMPLOYEE
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function onlyNumberKey(evt) {
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+</script>
