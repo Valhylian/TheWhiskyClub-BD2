@@ -75,7 +75,8 @@ router.post('/users/signup', async (req, res) => {
       password,
       confirm_password,
       country,
-      subscription
+      subscription,
+      addressName
     });
   }
   else {
@@ -89,7 +90,7 @@ router.post('/users/signup', async (req, res) => {
         .input('full_name', req.body.name)
         .input('country_id', req.body.country)
         .input('email', req.body.email)
-        .input('id_subscription', req.body.subscription)
+        .input('id_subscription', 1)
         .input('latitude', markerPositionLat)
         .input('longitude', markerPositionLong)
         .input('addressName', addressName)
@@ -97,21 +98,64 @@ router.post('/users/signup', async (req, res) => {
       const newUser = result.recordset;
       //console.log(result.returnValue);
       if (markerPositionLat == '' || markerPositionLong == '') {
-        req.flash("error_msg", "Please set the marker by pressing the map before you send the information.");
-        res.redirect("/users/signup");
+        errors.push({ text: "Please set the marker by pressing the map before you send the information."});
+        res.render("users/signup", {
+          errors,
+          username,
+          name,
+          email,
+          password,
+          confirm_password,
+          country,
+          subscription,
+          addressName
+        });
         return;
       }
       if (result.returnValue != 0) {
         if (result.returnValue == 2) {
-          req.flash("error_msg", "The username is already taken, please choose a different one");
-          res.redirect("/users/signup");
+          errors.push({ text: "The username is already taken, please choose a different one"});
+          res.render("users/signup", {
+            errors,
+            username,
+            name,
+            email,
+            password,
+            confirm_password,
+            country,
+            subscription,
+            addressName
+          });
+          return;
         }
-        else if (result.returnValue == 3) {
-          req.flash("error_msg", "The email address is already in use by an account");
-          res.redirect("/users/signup");
+        if (result.returnValue == 3) {
+          errors.push({ text: "The email address is already in use by an account"});
+          res.render("users/signup", {
+            errors,
+            username,
+            name,
+            email,
+            password,
+            confirm_password,
+            country,
+            subscription,
+            addressName
+          });
+          return;
         }
-        req.flash("error_msg", "There has been an error during the creation process, please remember to click the map to set your address.");
-        res.redirect("/users/signup");
+        errors.push({ text: "There has been an error during the creation process, please remember to click the map to set your address."});
+        res.render("users/signup", {
+          errors,
+          username,
+          name,
+          email,
+          password,
+          confirm_password,
+          country,
+          subscription,
+          addressName
+        });
+        return;
       }
       else {
         req.flash("success_msg", "You have registered successfully.");
