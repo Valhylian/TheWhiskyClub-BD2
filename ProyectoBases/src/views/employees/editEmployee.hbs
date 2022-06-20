@@ -1,0 +1,151 @@
+<div class="'col-md-4 mx-auto">
+    <div>
+        <br></br>
+        <h3>EDIT EMPLOYEE:</h3>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee&nbsp;Code</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Department</th>
+                <th>Store</th>
+                <th>Salary ($)</th>
+                <th>Local Money</th>
+                <th>Salary (Local)</th>
+                <th>Good Score</th>
+                <th>Bad Sore</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+            {{#each result_employees}}
+            <tr>
+                <form action="employeeConsultSearch" method="POST"></form>
+                <td>{{id_employee}}</td>
+                <td>{{name_employee}}</td>
+                <td>{{nameJob}}</td>
+                <td>{{nameDepartment}}</td>
+                <td>{{name_store}}</td>
+                <td>{{salary}}</td>
+                <td>{{money_type}}</td>
+                <td>{{salaryEquiv}}</td>
+                <td>{{score}}</td>
+                <td>{{badScore}}</td>
+                <td>{{active}}</td>
+
+
+            </tr>
+            {{/each}}
+
+
+        </tbody>
+    </table>
+
+</div>
+
+<div class="'col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            UPDATE EMPLOYEE
+        </div>
+        <div class="card-body">
+
+            <form action="/updateEmployeSP" method="POST">
+                 {{#each result_employees}}
+                <input hidden type="number" class="form-control" name="id_employee" placeholder="Full Name" value="{{id_employee}}"
+                {{/each}}
+
+                <!--NAME-->
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="New Name">
+                </div>
+                <!--JOB-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect3">Job:</label><br>
+                    <select name="id_Job" class="form-control" id="id_Job">
+                        {{#each result_employees}}
+                             <option value={{job_employee}}>{{nameJob}}</option>
+                        {{/each}}
+                        {{#each result_jobs}}
+                            <option value={{this.id_job}}>{{this.name_job}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <!--DEPARMENT-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect2">Department:</label><br>
+                    <select name="id_Department" class="form-control" id="id_Department">
+                        {{#each result_employees}}
+                        <option value={{department_employee}}>{{nameDepartment}}</option>
+                        {{/each}}
+                        {{#each result_department}}
+                        <option value={{this.id_department}}>{{this.name_deparment}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                
+                <!--STORE-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect4">Store:</label><br>
+                    <select name="id_Store" class="form-control" id="id_Store">
+                        {{#each result_employees}}
+                        <option value={{store_employee}}>{{name_store}}</option>
+                        {{/each}}
+                        {{#each result_store}}
+                        <option value={{id_store}}>{{name_store}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <!--SALARY-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect1">Salary($):</label><br>
+                    {{#each result_employees}}
+                        <input type="number" min=0 value={{salary}} name="salary" class="form-control"
+                        {{/each}}
+
+                        onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2">
+                </div>
+
+                <!--BADSCORE-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect1">Bad Score:</label><br>
+                    {{#each result_employees}}
+                        <input type="number" min=0 value={{badScore}} name="BadScore" class="form-control"
+                    {{/each}}
+                        onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2">
+                </div>
+
+                <!--GoosScore-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect1">Bad Score:</label><br>
+                    {{#each result_employees}}
+                        <input type="number" min=0 value={{score}} name="GoodScore" class="form-control"
+                    {{/each}}
+                        onkeypress="return onlyNumberKey(event)" aria-describedby="basic-addon2">
+                </div>
+                <!--ACTIVE-->
+                <select name="active" class="form-control" id="active">
+                        <option value=1 selected>ACTIVE</option>
+                        <option value=0 >DELETE</option>
+
+                    </select>
+                <br>   </br>
+                <button class="btn btn-primary btn-block">
+                    UPDATE EMPLOYEE
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,122 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 50rem;">
+        <div class="'card-header">
+            <h3>CONSULT EMPLOYEE</h3>
+        </div>
+
+        <!--CARD (FORM) FOR CONSULT PARAMETERS-->
+        <div class="card-body">
+            <form action="employeeConsultSearch" method="POST">
+                <!--DEPARTMENT-->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect1">Department:</label><br>
+                    <select name="id_Department" class="form-control" id="id_Department">
+                        <option value=0 selected>NO DEPARTMENT</option>
+                        {{#each result_department}}
+                        <option value={{this.id_department}}>{{this.name_deparment}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <!-- SELECT JOB -->
+                <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlSelect3">Job:</label><br>
+                    <select name="id_Job" class="form-control" id="id_Job">
+                        <option value=0 selected>NO JOB</option>
+                        {{#each result_jobs}}
+                        <option value={{this.id_job}}>{{this.name_job}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="employeeName" class="form-control" placeholder="Name">
+                    </select>
+                    <div class="form-group">
+                        <input type="number" name="LowBadScore" class="form-control" placeholder="Low Bad Score">
+                        </select>
+                        <div class="form-group">
+                            <input type="number" name="LowGodScore" class="form-control" placeholder="Low Good Score">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="LowSalary" class="form-control" placeholder="Low Salary">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="HighSalary" class="form-control" placeholder="High Salary">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">
+                                CONSULT
+                            </button>
+                        </div>
+
+                    </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<div class="'col-md-4 mx-auto">
+    <div>
+        <br></br>
+        <h3>LIST OF EMPLOYEES:</h3>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee&nbsp;Code</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Department</th>
+                <th>Store</th>
+                <th>Salary ($)</th>
+                <th>Local Money</th>
+                <th>Salary (Local)</th>
+                <th>Good Score</th>
+                <th>Bad Sore</th>
+                <th>EDIT</th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+
+            {{#each result_employees}}
+            <tr>
+
+                <td>{{id_employee}}</td>
+                <td>{{name_employee}}</td>
+                <td>{{nameJob}}</td>
+                <td>{{nameDepartment}}</td>
+                <td>{{name_store}}</td>
+                <td>{{salary}}</td>
+                <td>{{money_type}}</td>
+                <td>{{salaryEquiv}}</td>
+                <td>{{score}}</td>
+                <td>{{badScore}}</td>
+                
+                <td>
+                    <form action="/editEmployee" method="POST">
+                    <input type="hidden" name="id_employee" value={{id_employee}}>                    
+                    <button class="btn btn-primary btn-block" type="submit">
+                        EDIT
+                    </button>
+                    </form>
+                </td>
+
+
+
+            </tr>
+
+            {{/each}}
+
+        </tbody>
+</div>

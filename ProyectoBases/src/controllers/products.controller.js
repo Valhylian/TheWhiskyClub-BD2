@@ -49,7 +49,7 @@ export const addProductToCart = (req, res) => {
 export const getAllProducts_search = async (req, res) => {
   try {
     const pool = await getConnection();
-    const { ids_ProductType, poductName, lowPrice, higPrice, distance, order } = req.body;
+    const { ids_ProductType, poductName, lowPrice, higPrice, distance, order, amount_purchase } = req.body;
     const result = await pool.request()
       .input('id_client', req.user.clientID)
       .input('id_productType_', ids_ProductType)
@@ -57,6 +57,7 @@ export const getAllProducts_search = async (req, res) => {
       .input('lowPrice_', lowPrice)
       .input('higPrice_', higPrice)
       .input('distance_', distance)
+      .input('orderByPurchase', amount_purchase)
       .input('order_', order)
       .execute(`consultProductsParameters`);
 

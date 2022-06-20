@@ -2,7 +2,7 @@ import { Router } from "express";
 import { getConnection, querys, sql } from "../database";
 import passport from "passport";
 import { isAuthenticated, isNotAuthenticated, isClient, isAdmin } from "../helpers/auth";
-import { changeUserSubscription, updatePreferredAddress, addLocation,getInfoChangeAddress } from "../controllers/users.controller"
+import { changeUserSubscription, updatePreferredAddress, addLocation,getInfoChangeAddress, loadPageSubscription } from "../controllers/users.controller"
 
 const router = Router();
 
@@ -11,9 +11,7 @@ const router = Router();
 //router.post("/users", createNewUser);
 
 
-router.get('/users/subscription', isClient, (req, res) => {
-  res.render('users/subscription');
-});
+router.get('/users/uploadChangeSubscription', isClient, loadPageSubscription);
 
 router.get('/users/addAdress', isClient, (req, res) => {
   res.render('users/addAddress');
@@ -36,7 +34,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/users/changeSubscription', isClient, changeUserSubscription);
+router.post('/users/uploadChangeSubscription', isClient, changeUserSubscription);
 
 router.post('/users/sendMarkerInfo', isClient, addLocation);
 

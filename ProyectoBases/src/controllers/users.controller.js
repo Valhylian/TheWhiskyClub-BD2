@@ -25,6 +25,19 @@ export const createNewUser = async (req, res) => {
   }
 };
 
+export const loadPageSubscription = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .execute(`getSubscriptionCatalog`);
+    const subscriptionInfo = result.recordset;
+    res.render("users/subscription", { subscriptionInfo });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const addLocation = async (req, res) => {
   try {
     const { markerPositionLat, markerPositionLong, addressName } = req.body;
@@ -85,7 +98,7 @@ export const getInfoChangeAddress = async (req, res) => {
   try {
     const pool = await getConnection();
     const resultUserAddresses = await pool.request()
-      .input('idClient_',req.user.clientID)
+      .input('idClient_', req.user.clientID)
       .execute(`getUserAddresses`);
     const addressesResult = resultUserAddresses.recordset;
     //console.log(addressesResult);
@@ -101,15 +114,15 @@ export const updatePreferredAddress = async (req, res) => {
     const pool = await getConnection();
     //console.log(req.body.idSelectedAddress);
     const resultUserAddresses = await pool.request()
-      .input('idClient_',req.user.clientID)
-      .input('preferredLocationId',req.body.idSelectedAddress)
+      .input('idClient_', req.user.clientID)
+      .input('preferredLocationId', req.body.idSelectedAddress)
       .execute(`changePreferredAddress`);
     const addressesResult = resultUserAddresses.recordset;
-    if(resultUserAddresses.returnValue == 0){
+    if (resultUserAddresses.returnValue == 0) {
       req.flash("success_msg", "You have changed your preferred address.");
       res.redirect("/");
     }
-    else{
+    else {
       req.flash("error_msg", "There has been an error on the update of your preferred address, please try again.");
       res.redirect("/users/changeSelectedAddress");
     }

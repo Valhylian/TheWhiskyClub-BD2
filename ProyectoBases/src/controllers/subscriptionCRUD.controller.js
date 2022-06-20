@@ -19,7 +19,7 @@ export const loadCreateSubscription = async (req, res) => {
 };
 
 export const uploadNewSubscriptions = async (req, res) => {
-    var { name, price, discount_subscription, discount_shipping, description } = req.body;
+    var { name, price, discount_subscription, discount_shipping, description, specialRadio } = req.body;
     try {
         const pool = await getConnection();
         const resultAddSubscription = await pool.
@@ -29,6 +29,7 @@ export const uploadNewSubscriptions = async (req, res) => {
             .input('discountSubscription', discount_subscription)
             .input('discountShipping', discount_shipping)
             .input('description', description)
+            .input('special', specialRadio)
             .execute(`AddSubscription`);
         console.log(resultAddSubscription.returnValue);
         if (resultAddSubscription.returnValue != 0) {
@@ -84,7 +85,7 @@ export const loadSubscriptionInfoUpdate = async (req, res) => {
 
 export const uploadUpdateSubscription = async (req, res) => {
 
-    var {name, price, discount_subscription, discount_shipping, description, activeRadio, selectedSubId} =req.body
+    var {name, price, discount_subscription, discount_shipping, description, activeRadio, selectedSubId, specialRadio} =req.body
 
     if(!name){
         name = null;
@@ -110,6 +111,9 @@ export const uploadUpdateSubscription = async (req, res) => {
         activeRadio = null;
         console.log(activeRadio);
     }
+    if(!specialRadio){
+        specialRadio = null;
+    }
 
     try {
         const pool = await getConnection();
@@ -121,6 +125,7 @@ export const uploadUpdateSubscription = async (req, res) => {
             .input('discountSubscription',discount_subscription)
             .input('discountShipping',discount_shipping)
             .input('active',activeRadio)
+            .input('special', specialRadio)
             .execute(`updateSubscription`);
         const subscriptionResult = update_subscriptions.recordset;
         if (update_subscriptions.returnValue != 0) {
