@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                Update a presentation
+            </div>
+            <div class="card-body">
+                <h5>Fill only the inputs of the aspects of the presentation you wish to change.</h5>
+                <form action="/uploadUpdatePresentation" method="POST">
+                <input type="hidden" name="selectedIdPresentation" value={{idPresentationSelected}}>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control" name="description"
+                            placeholder="Presentation description" ></textarea>
+                    </div>
+                    <h6>Do you wish to deactivate this presentation? It will no longer be up for selection</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="activeRadio" id="flexRadioDefault1" value=1>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Activate
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="activeRadio" id="flexRadioDefault2" value=0>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Delete
+                        </label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="'col-md-4 mx-auto">
+
+    <h3>Current Presentation Info</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID&nbsp;Code</th>
+                <th>Description&nbsp;Presentation</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+
+            {{#each presentationsResult}}
+            <tr>
+                <td>{{id_Container}}</td>
+                <td>{{description_Container}}</td>
+                <td>{{active}}</td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+</div>

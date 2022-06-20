@@ -1,0 +1,41 @@
+<div class="'col-md-4 mx-auto">
+
+    <h3>PRODUCT INFO</h3>
+
+  <table class ="table">
+        <thead>
+            <tr>
+                <th>Product&nbsp;Code</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Aged</th>
+                <th>Distillery</th>
+                <th>Container</th>
+                <th>Price</th>
+                <th>Special?</th>
+                <th>Status</th>
+                <th>Amount available</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class = "collection with-header">
+            
+            {{#each productsResult}}
+                <tr>
+                <td>{{id_product}}</td>
+				<td>{{name_product}}</td>
+				<td>{{name_ProductType}}</td>
+                <td>{{aged_product}}</td>  
+                <td>{{name_Distillery}}</td>
+                <td>{{description_Container}}</td>
+                <td>${{price_product}}</td>
+                <td>{{special_product}}</td>
+                <td>{{status}}</td>
+                <td>{{amount}} units</td>
+            </tr>
+   
+             {{/each}}
+
+        </tbody>
+</div>

@@ -1,0 +1,45 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 72rem;">
+        <div class="'card-header">
+            <h3>MENU SUBSCRIPTIONS</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <br>
+                <!--REGISTER-->
+                <form action="/createNewsubscription" method="GET">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            REGISTER NEW SUBSCRIPTION
+                        </button>
+                    </div>
+                </form>
+                <!--CONSULT-->
+                <form action="/loadsubscriptionInfo" method="POST">
+                    <select name="ids_subscription" class="form-control" id="ids_subscriptionType">
+                        {{#each result_subscription}}
+                        <option value={{id_subscription}}>{{name_subscription}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            CONSULT SUBSCRIPTION
+                        </button>
+                    </div>
+                </form>
+                <!--UPDATE-->
+                <form action="/loadsubscriptionInfoUpdate" method="POST">
+                    <select name="ids_subscription" class="form-control" id="ids_subscriptionType">
+                        {{#each result_subscription}}
+                        <option value={{id_subscription}}>{{name_subscription}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            EDIT SUBSCRIPTION
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

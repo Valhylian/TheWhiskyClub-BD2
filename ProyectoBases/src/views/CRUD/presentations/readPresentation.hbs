@@ -1,0 +1,25 @@
+<div class="'col-md-4 mx-auto">
+
+    <h3>Container INFO</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID&nbsp;Code</th>
+                <th>Description&nbsp;Presentation</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+
+            {{#each presentationsResult}}
+            <tr>
+                <td>{{id_Container}}</td>
+                <td>{{description_Container}}</td>
+                <td>{{active}}</td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+</div>

@@ -1,0 +1,46 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 72rem;">
+        <div class="'card-header">
+            <h3>MENU WHISKY TYPES</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <br>
+                <!--REGISTER-->
+                <form action="/createNewType" method="GET">
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            REGISTER NEW TYPE
+                        </button>
+                    </div>
+                </form>
+                <!--CONSULT-->
+                <form action="/loadTypeInfo" method="POST">
+                    <select name="ids_Type" class="form-control" id="ids_TypeType">
+                        {{#each result_types}}
+                        <option value={{id_ProductType}}>{{name_ProductType}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            CONSULT TYPE
+                        </button>
+                    </div>
+                </form>
+                <!--UPDATE-->
+                <form action="/loadTypeInfoUpdate" method="POST">
+                    <select name="ids_Type" class="form-control" id="ids_TypeType">
+                        {{#each result_types}}
+                        <option value={{id_ProductType}}>{{name_ProductType}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            EDIT TYPE
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

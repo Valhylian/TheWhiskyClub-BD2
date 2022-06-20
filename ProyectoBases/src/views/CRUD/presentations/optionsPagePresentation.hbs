@@ -1,0 +1,46 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 72rem;">
+        <div class="'card-header">
+            <h3>MENU PRESENTATIONS</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <br>
+                <!--REGISTER-->
+                <form action="/createNewPresentation" method="GET">
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            REGISTER NEW PRESENTATION
+                        </button>
+                    </div>
+                </form>
+                <!--CONSULT-->
+                <form action="/loadPresentationInfo" method="POST">
+                    <select name="ids_Presentation" class="form-control" id="ids_PresentationType">
+                        {{#each result_presentations}}
+                        <option value={{id_Container}}>{{description_Container}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            CONSULT PRESENTATION
+                        </button>
+                    </div>
+                </form>
+                <!--UPDATE-->
+                <form action="/loadPresentationInfoUpdate" method="POST">
+                    <select name="ids_Presentation" class="form-control" id="ids_PresentationType">
+                        {{#each result_presentations}}
+                        <option value={{id_Container}}>{{description_Container}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            EDIT PRESENTATION
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

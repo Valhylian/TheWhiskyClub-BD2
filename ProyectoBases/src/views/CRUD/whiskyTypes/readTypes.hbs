@@ -1,0 +1,25 @@
+<div class="'col-md-4 mx-auto">
+
+    <h3>Whisky Type INFO</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID&nbsp;Code</th>
+                <th>Whisky&nbsp;Type</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+
+            {{#each typesResult}}
+            <tr>
+                <td>{{id_ProductType}}</td>
+                <td>{{name_ProductType}}</td>
+                <td>{{active}}</td>
+            </tr>
+            {{/each}}
+
+        </tbody>
+</div>

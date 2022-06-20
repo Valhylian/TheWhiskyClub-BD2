@@ -1,0 +1,46 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 72rem;">
+        <div class="'card-header">
+            <h3>MENU PRODUCTS</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <br>
+                <!--REGISTER-->
+                <form action="/createNewProduct" method="GET">
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            REGISTER NEW PRODUCT
+                        </button>
+                    </div>
+                </form>
+                <!--CONSULT-->
+                <form action="/loadProductInfo" method="POST">
+                    <select name="ids_Product" class="form-control" id="ids_ProductType">
+                        {{#each result_products}}
+                        <option value={{id_product}}>{{name_product}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            CONSULT PRODUCT
+                        </button>
+                    </div>
+                </form>
+                <!--UPDATE-->
+                <form action="/loadProductInfoUpdate" method="POST">
+                    <select name="ids_Product" class="form-control" id="ids_ProductType">
+                        {{#each result_products}}
+                        <option value={{id_product}}>{{name_product}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            EDIT PRODUCT
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

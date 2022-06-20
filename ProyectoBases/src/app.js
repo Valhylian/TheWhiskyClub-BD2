@@ -2,6 +2,10 @@ import express from "express";
 import path from "path";
 import { engine } from 'express-handlebars';
 import cors from "cors";
+import productsCrudRoutes from './routes/productsCRUD.routes';
+import whiskyTypesCrudRoutes from './routes/whiskyTypesCRUD.routes';
+import presentationsCrudRoutes from './routes/presentationsCRUD.routes';
+import subscriptionCrudRoutes from './routes/subscriptionCRUD.routes';
 import userRoutes from "./routes/users.routes";
 import productRoutes from "./routes/products.routes";
 import purchaseRoutes from "./routes/purchase.routes";
@@ -98,6 +102,10 @@ app.use(multer({
 }).single('image'));
 
 // Routes
+app.use(whiskyTypesCrudRoutes);
+app.use(productsCrudRoutes);
+app.use(subscriptionCrudRoutes);
+app.use(presentationsCrudRoutes);
 app.use(userRoutes);
 app.use(productRoutes);
 app.use(purchaseRoutes);
