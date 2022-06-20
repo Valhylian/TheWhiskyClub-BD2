@@ -5,6 +5,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Product&nbsp;Code</th>
                 <th>Name</th>
                 <th>Type</th>
@@ -18,7 +19,6 @@
                 <th>Country</th>
                 <th>Distance</th>
                 <th>Special</th>
-                <th>Quantity</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,6 +27,7 @@
 
             {{#each productsResult}}
             <tr>
+                <td><img src={{product_image}} alt="Girl in a jacket" style="width:120px;height:120px;"/></td>
                 <td>{{product_code}}</td>
                 <td>{{product_name}}</td>
                 <td>{{product_type}}</td>

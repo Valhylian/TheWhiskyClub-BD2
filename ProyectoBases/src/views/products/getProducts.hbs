@@ -1,5 +1,5 @@
 <div class="'col-md-4 mx-auto">
-    <div class = "card" style="width: 72rem;">
+    <div class = "card" style="width: 85rem;">
         <div class="'card-header" >
             <h3>CONSULT PRODUCT</h3>
         </div>
@@ -51,13 +51,14 @@
     </div>
 </div>
 <br></br>
-<div class="'col-md-4 mx-auto">
+<div >
 
     <h3>LIST OF PRODUCTS</h3>
 
   <table class ="table">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Product&nbsp;Code</th>
                 <th>Name</th>
                 <th>Type</th>
@@ -71,7 +72,7 @@
                 <th>Country</th>
                 <th>Distance KM</th>
                 <th>Special</th>
-                <th></th>
+                
             </tr>
         </thead>
 
@@ -79,6 +80,7 @@
             
             {{#each productsResult}}
                 <tr>
+                <td><img src={{product_image}} alt="Girl in a jacket" style="width:120px;height:120px;"/></td>
                 <td>{{product_code}}</td>
 				<td>{{product_name}}</td>
 				<td>{{product_type}}</td>
@@ -92,12 +94,20 @@
                 <td>{{nearbyCountry}}</td>
                 <td>{{nearbyDistance}}</td>
                 <td>{{statusProduct}}</td>
+                
             </tr>
    
              {{/each}}
-
+                <!--<td><img src={{imagePr2}} /></td>-->
         </tbody>
 </div>
 
 
 
+<script>
+     function  ToBase64ImageString(this byte[] data)
+        {
+            
+            return "data:image/gif;base64,"+data.toString('base64');
+        }
+</script>
