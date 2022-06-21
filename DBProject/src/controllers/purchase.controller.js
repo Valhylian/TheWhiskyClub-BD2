@@ -36,7 +36,7 @@ let transporter = nodemailer.createTransport({
      ciphers:'SSLv3'
   },
   auth: {
-      user: 'shopatwhiskybrothers@outlook.com',
+      user: 'shopatwhiskybrothers2@outlook.com',
       pass: 'proyectobases2'
   }
 });
@@ -120,7 +120,7 @@ export const completePurchase_store = async (req, res) => {
     body = body +'</b><br>If the status is canceled it will not be processed'
 
     var mailOptions = {
-      from: 'shopatwhiskybrothers@outlook.com', // sender address (who sends)
+      from: 'shopatwhiskybrothers2@outlook.com', // sender address (who sends)
       to: clientMail, // list of receivers (who receives)
       subject: 'PURCHASE CONFIRMATION', // Subject line
       text: 'Dear: '+clientName ,  // plaintext body

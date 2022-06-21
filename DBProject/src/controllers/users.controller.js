@@ -1,5 +1,5 @@
 import { getConnection, querys, sql } from "../database";
-
+import {nodemailer,transporter,sendMail} from "../mailConfig"
 
 export const createNewUser = async (req, res) => {
   try {
@@ -86,6 +86,22 @@ export const changeUserSubscription = async (req, res) => {
       .input('newPlan', req.body.newSubscription)
       .input('username', req.user.username)
       .execute(`ChangeAccountSubscription`);
+
+    const resultSubs = await pool.request()
+      .input('idSubscription', req.body.newSubscription)
+      .execute(`getSubscriptionInfo`);
+      
+    const info = resultSubs.recordset[0];
+     //SEND CONFIRMATION MAIL
+     let body = '<b> Your subscription purchase is confirmed: ' + info.name_subscription +'</b><br>'
+     body = body + 'Price: '+ info.price_subscription + '</b><br>'
+     body = body + 'sales discount: '+ info.discount_subscription + '</b><br>'
+     body = body + 'shipping discount: '+ info.discount_shipping + '</b><br>'
+     body = body + 'can see special products?: '+ info.special + '</b><br>'
+     body = body + 'General description: '+ info.description_subscription + '</b><br>'
+
+    console.log("emaiiil: "+req.user.clientEmail);
+    sendMail(req.user.clientEmail, body);
     req.flash("success_msg", "You have changed your account plan.");
     res.redirect("/");
   } catch (error) {
