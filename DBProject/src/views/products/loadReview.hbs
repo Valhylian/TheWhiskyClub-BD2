@@ -1,0 +1,63 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 70rem;">
+        <div class="'card-header">
+            <h3>REVIEW PRODUCT</h3>
+        </div>
+
+        <!--SHOW PRODUCT INFO-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product&nbsp;Code</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Aged</th>
+                    <th>Destilley</th>
+                    <th>Container</th>
+                    <th>Price</th>
+                    <th>Money conversion</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTable" class="collection with-header">
+
+                {{#each productsResult}}
+                <tr>
+                    <td>{{id_product}}</td>
+                    <td>{{name_product}}</td>
+                    <td>{{name_ProductType}}</td>
+                    <td>{{aged_product}}</td>
+                    <td>{{name_Destillery}}</td>
+                    <td>{{description_Container}}</td>
+                    <td>{{price_product}}</td>
+                    <td>{{newPrice}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div>
+            <!--SHOW PRODUCT INFO-->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+
+                <tbody id="productTable" class="collection with-header">
+
+                    {{#each reviewsResult}}
+                    <tr>
+                        <td>{{name_client}}</td>
+                        <td>{{date_review}}</td>
+                        <td>{{review}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

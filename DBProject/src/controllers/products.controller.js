@@ -103,7 +103,6 @@ export const reviewProduct = async (req, res) => {
       productsResult[k].newPrice = productsResult[k].price_product * info;
    }
 
-    
     res.render('products/review', {idProduct,productsResult});
 
   } catch (error) {
@@ -139,7 +138,34 @@ export const sendReviewProduct = async (req, res) => {
       res.redirect("/products");
     }
 
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
+
+export const viewReviewProduct = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const {idProduct} = req.body;
+
+    //exec producedure for product info
+    const result = await pool.request()
+      .input('idProduct', idProduct)
+      .execute(`getProductInfoXID`);
+    const productsResult = result.recordset;//PRODUCT INFO
+    const info = req.user.dollarEquivalent;
+    for(var k in productsResult) {
+      productsResult[k].newPrice = productsResult[k].price_product * info;
+   }
+    //exec procedure for reviews info
+    const resultReviews = await pool.request()
+      .input('idProduct_', idProduct)
+      .execute(`loadReviews`);
+    const reviewsResult = resultReviews.recordset;//PRODUCT INFO
+
+    res.render('products/loadReview', {idProduct,productsResult,reviewsResult});
 
   } catch (error) {
     res.status(500);

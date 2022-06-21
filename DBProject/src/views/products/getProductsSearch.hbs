@@ -45,7 +45,7 @@
                 <td>{{statusProduct}}</td>
                 <td>{{amount_purchase}}</td>
 
-
+                <!--BUTTON FOR MAKE REVIEW-->
                 <td>
                     <form action="/products/review" method="POST">
                     <input type="hidden" name="idProduct" value={{product_code}}>                    
@@ -54,6 +54,18 @@
                     </button>
                     </form>
                 </td>
+
+                <!--BUTTON TO LOSD REVIEWS-->
+                <td>
+                    <form action="/products/viewReview" method="POST">
+                    <input type="hidden" name="idProduct" value={{product_code}}>                    
+                    <button class="btn btn-primary btn-block" type="submit">
+                        VIEW REVIEWS
+                    </button>
+                    </form>
+                </td>
+
+
                 
                 
             </tr>
