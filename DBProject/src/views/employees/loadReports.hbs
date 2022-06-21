@@ -1,0 +1,88 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 70rem;">
+        <div class="'card-header">
+            <h3>REPORT EMPLOYEE</h3>
+        </div>
+
+        <!--SHOW EMPLOYEE AND REPORT INFO-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Review&nbsp;Code</th>
+                    <th>Employee&nbsp;Code</th>
+                    <th>Name</th>
+                    <th>Job</th>
+                    <th>Department</th>
+                    <th>Report&nbsp;By</th>
+                    <th>Date</th>
+                    <th>Report</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTable" class="collection with-header">
+
+                {{#each result_reviews}}
+                <tr>
+                    <td>{{id_review}}</td>
+                    <td>{{employee_review}}</td>
+                    <td>{{name_employee}}</td>
+                    <td>{{name_job}}</td>
+                    <td>{{name_deparment}}</td>
+                    <td>{{name_client}}</td>
+                    <td>{{dateR}}</td>
+                    <td>{{info_review}}</td>
+                    <td>{{descriptionReview}}</td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+        <div>
+
+            <!--REPORTS CONSULT-->
+            <form action="/employee/sendResolveReview" method="POST">
+
+                <div class="form-group">
+                    <h5>Report Id: </h5>
+                    <select name="id_Report" class="form-control" id="id_Report">
+                        {{#each result_reviews}}
+                        <tr>
+                            <option value={{id_review}}>{{id_review}}</option>
+                        </tr>
+                        {{/each}}
+                    </select>
+
+                    <h5>Asing good points: </h5>
+                    <select name="good_score" class="form-control" id="good_score">
+                        <tr>
+                            <option value=0>0</option>
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                        </tr>
+                    </select>
+
+                    <h5>Asing bad points: </h5>
+                    <select name="bad_score" class="form-control" id="bad_score">
+                        <tr>
+                            <option value=0>0</option>
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                        </tr>
+                    </select>
+
+                    <h5>Special comment in email: </h5>
+                    <div class="form-group">
+                        <input type="text" name="emailBody" class="form-control" placeholder="Email Body">
+                    </div>
+
+
+                    <button class="btn btn-primary btn-block" type="submit">
+                        PROCESS REPORT
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

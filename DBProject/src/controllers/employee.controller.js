@@ -1,4 +1,5 @@
 import { getConnection, querys, sql } from "../database";
+import {nodemailer,transporter,sendMail} from "../mailConfig"
 
 
 //OPEN FORM TO REGISTER EMPLOYEE--------------
@@ -228,3 +229,200 @@ export const updateEmployeSP = async (req, res) => {
         res.send(error.message);
     }
 };
+
+//LOAD ALL EMPLOYES FOR CLIENTE MAIN PAGE
+export const consultEmployeeClient = async (req, res) => {
+    try {
+        const pool = await getConnection();
+
+        //GET EMPLOYEES
+        const get_employees = await pool.request()
+            .execute(`Consult_employees`);
+        const result_employees = get_employees.recordset;
+
+        //GET JOBS
+        const get_jobs = await pool.request()
+            .execute(`ReturnJobs`);
+        const result_jobs = get_jobs.recordset;
+
+        //GET DEPARTMENTS
+        const get_departments = await pool.request()
+            .execute(`ReturnDepartments`);
+        const result_department = get_departments.recordset;
+
+        //GET STORES
+        const get_stores = await pool.request()
+            .execute(`returnStores`);
+        const result_store = get_stores.recordset;
+
+        res.render('employees/reportEmployee', {result_employees,result_jobs,result_department,result_store });
+
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+};
+
+//LOAD THE SEARCH OF EMPLOYEES (CLIENT) FOR A REPORT--------------
+export const consultEmployeeClientParameters = async (req, res) => {
+    try {
+        const pool = await getConnection();
+        const {employeeName, id_Department, id_Job} = req.body; //PARAMETERS
+
+        //GET EMPLOYEES
+        const get_employees2 = await pool.request()
+            .input('name_employee_',employeeName)
+            .input('id_department_', id_Department)
+            .input('id_job_', id_Job)
+            .input('lower_badSocore_', '')
+            .input('lower_goodSocore_', '')
+            .input('lower_salary_', '')
+            .input('higher_salary_','')
+            .execute(`Consult_employeeGeneral`);
+
+        const result_employees = get_employees2.recordset;
+
+        //GET JOBS
+        const get_jobs = await pool.request()
+            .execute(`ReturnJobs`);
+        const result_jobs = get_jobs.recordset;
+
+        //GET DEPARTMENTS
+        const get_departments = await pool.request()
+            .execute(`ReturnDepartments`);
+        const result_department = get_departments.recordset;
+
+        //GET STORES
+        const get_stores = await pool.request()
+            .execute(`returnStores`);
+        const result_store = get_stores.recordset;
+
+        res.render('employees/reportEmployee', {result_employees,result_jobs,result_department,result_store });
+
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+};
+
+//LOAD PAGE REVIEW WITH INFO OF EMPLOYEE
+export const reportEmployeeClient = async (req, res) => {
+    try {
+      const pool = await getConnection();
+      const {id_employee} = req.body;
+
+      //exec producedure for product info
+      const result = await pool.request()
+        .input('id_employee', id_employee)
+        .execute(`Consult_employeeXID`);
+  
+      const result_employees = result.recordset;//EMPLOYEE INFO
+  
+      res.render('employees/sendReviewEmployee', {id_employee,result_employees});
+  
+    } catch (error) {
+      res.status(500);
+      res.send(error.message);
+    }
+  };
+
+  //SEND REPORT
+  export const sendReportEmployee= async (req, res) => {
+    try {
+      const pool = await getConnection();
+      
+      const {idEmploye, review_} = req.body;
+        console.log('empleadooo: '+ idEmploye);
+      //exec producedure for post review
+      const result = await pool.request()
+        .input('idEmployee_', idEmploye)
+        .input('idClient_',  req.user.clientID)
+        .input('review', review_)
+        .execute(`generateEmployeeReport`);
+  
+      //VALIDATE ERROR
+      if (result.returnValue == 1){
+        req.flash("error_msg", "The review was not saved, error validating your user data.");
+        res.redirect("/employeeReviewMainPage");
+      }
+      else if (result.returnValue == 2){
+        req.flash("error_msg", "Error validating employee data.");
+        res.redirect("/employeeReviewMainPage");
+      }
+      else{
+        req.flash("success_msg", "Saved Review.");
+        res.redirect("/employeeReviewMainPage");
+      }
+  
+    } catch (error) {
+      res.status(500);
+      res.send(error.message);
+    }
+  };
+
+
+//LOAD PAGE REVIEW WITH INFO OF REPORTS (FOR USER ADMIN)
+export const viewEmployeeReports = async (req, res) => {
+    try {
+      const pool = await getConnection();
+      const {id_ReportType} = req.body;
+
+      //exec producedure for reports info
+      const result = await pool.request()
+        .input('reportType', id_ReportType)
+        .execute(`loadEmployeeReport`);
+  
+      const result_reviews = result.recordset;//REPORTS INFO
+        if (id_ReportType == 2){
+            res.render('employees/processedReports', {result_reviews});
+        }
+        else{
+            res.render('employees/loadReports', {result_reviews});
+        }
+      
+  
+    } catch (error) {
+      res.status(500);
+      res.send(error.message);
+    }
+  };
+
+
+ //LOAD PAGE REVIEW WITH INFO OF REPORTS (FOR USER ADMIN)
+export const resolveReport = async (req, res) => {
+    try {
+      const pool = await getConnection();
+      const {id_Report, good_score, bad_score, emailBody} = req.body;
+
+      //exec producedure for process report (Points to employee)
+      const result = await pool.request()
+        .input('id_report_', id_Report)
+        .input('goodPoints_', good_score)
+        .input('badPoints_', bad_score)
+        .execute(`resolveEmployeeReport`);
+  
+      //SEND MAIL
+      const resultClient = await pool.request()
+        .input('report_id_', id_Report)
+        .execute(`loadClientInfoReport`);
+      //get info of client
+      const email = resultClient.recordset[0].email_client
+      const employeeName = resultClient.recordset[0].name_employee
+
+       //SEND CONFIRMATION MAIL
+        let body = '<b> Your report on the employee: ' +employeeName +' has been reviewed</b><br>'
+        body = body + emailBody + '</b><br>'
+
+        sendMail(email, body);
+        req.flash("success_msg", "Report has been processed.");
+  
+      res.redirect('/employeeMenu');
+  
+    } catch (error) {
+      res.status(500);
+      res.send(error.message);
+    }
+  };
+
+
+

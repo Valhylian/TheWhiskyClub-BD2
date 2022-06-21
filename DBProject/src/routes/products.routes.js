@@ -19,7 +19,7 @@ router.post('/products/addToCart',isAuthenticated,addProductToCart);
 
 //REVIEW PRODUCT
 router.post('/products/review',isAuthenticated,reviewProduct,); //load pag to make review
-router.post('/products/sendReview',isAuthenticated,sendReviewProduct,); //load pag to make review
+router.post('/products/sendReview',isAuthenticated,sendReviewProduct,); 
 router.post('/products/viewReview',isAuthenticated,viewReviewProduct,); //load pag to view review of a product
 
 export default router;

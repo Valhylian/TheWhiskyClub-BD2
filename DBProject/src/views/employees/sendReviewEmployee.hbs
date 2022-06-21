@@ -1,0 +1,54 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 70rem;">
+        <div class="'card-header">
+            <h3>REPORT EMPLOYEE</h3>
+        </div>
+
+        <!--SHOW PRODUCT INFO-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Employee&nbsp;Code</th>
+                    <th>Name</th>
+                    <th>Job</th>
+                    <th>Department</th>
+                    <th>Store</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTable" class="collection with-header">
+
+                {{#each result_employees}}
+                <tr>
+
+                    <td>{{id_employee}}</td>
+                    <td>{{name_employee}}</td>
+                    <td>{{nameJob}}</td>
+                    <td>{{nameDepartment}}</td>
+                    <td>{{name_store}}</td>
+
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+        <div>
+
+            <form action="/employee/sendReport" method="POST">
+
+                <div class="form-group">
+                    <input type="hidden" name="idEmploye" value={{id_employee}}>
+                    <input type="text" style="width:200px; height:50px;" name="review_" class="form-control"
+                        placeholder="Review Here">
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        SEND REVIEW
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 70rem;">
+        <div class="'card-header">
+            <h3>REPORTS EMPLOYEE</h3>
+        </div>
+
+        <!--SHOW EMPLOYEE AND REPORT INFO-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Review&nbsp;Code</th>
+                    <th>Employee&nbsp;Code</th>
+                    <th>Name</th>
+                    <th>Job</th>
+                    <th>Department</th>
+                    <th>Report&nbsp;By</th>
+                    <th>Date</th>
+                    <th>Report</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTable" class="collection with-header">
+
+                {{#each result_reviews}}
+                <tr>
+                    <td>{{id_review}}</td>
+                    <td>{{employee_review}}</td>
+                    <td>{{name_employee}}</td>
+                    <td>{{name_job}}</td>
+                    <td>{{name_deparment}}</td>
+                    <td>{{name_client}}</td>
+                    <td>{{dateR}}</td>
+                    <td>{{info_review}}</td>
+                    <td>{{descriptionReview}}</td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
