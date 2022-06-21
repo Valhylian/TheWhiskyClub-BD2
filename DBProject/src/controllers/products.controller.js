@@ -82,3 +82,67 @@ export const getAllProducts_search = async (req, res) => {
     res.send(error.message);
   }
 };
+
+
+
+export const reviewProduct = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    
+    const {idProduct} = req.body;
+
+    //exec producedure for product info
+    const result = await pool.request()
+      .input('idProduct', idProduct)
+      .execute(`getProductInfoXID`);
+
+    const productsResult = result.recordset;//PRODUCT INFO
+
+    const info = req.user.dollarEquivalent;
+    for(var k in productsResult) {
+      productsResult[k].newPrice = productsResult[k].price_product * info;
+   }
+
+    
+    res.render('products/review', {idProduct,productsResult});
+
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export const sendReviewProduct = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    
+    const {idProduct, review_} = req.body;
+
+    //exec producedure for post review
+    const result = await pool.request()
+      .input('idProduct_', idProduct)
+      .input('idClient_',  req.user.clientID)
+      .input('review', review_)
+      .execute(`generateReview`);
+
+    //VALIDATE ERROR
+    if (result.returnValue == 1){
+      req.flash("error_msg", "The review was not saved, error validating your user data..");
+      res.redirect("/products");
+    }
+    else if (result.returnValue == 2){
+      req.flash("error_msg", "Error validating product data.");
+      res.redirect("/products");
+    }
+    else{
+      req.flash("success_msg", "Saved Review.");
+      res.redirect("/products");
+    }
+
+
+
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};

@@ -1,0 +1,56 @@
+<div class="'col-md-4 mx-auto">
+    <div class="card" style="width: 70rem;">
+        <div class="'card-header">
+            <h3>REVIEW PRODUCT</h3>
+        </div>
+
+        <!--SHOW PRODUCT INFO-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product&nbsp;Code</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Aged</th>
+                    <th>Destilley</th>
+                    <th>Container</th>
+                    <th>Price</th>
+                    <th>Money conversion</th>
+                </tr>
+            </thead>
+
+            <tbody id="productTable" class="collection with-header">
+
+                {{#each productsResult}}
+                <tr>
+                    <td>{{id_product}}</td>
+                    <td>{{name_product}}</td>
+                    <td>{{name_ProductType}}</td>
+                    <td>{{aged_product}}</td>
+                    <td>{{name_Destillery}}</td>
+                    <td>{{description_Container}}</td>
+                    <td>{{price_product}}</td>
+                    <td>{{newPrice}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div>
+            <form action="/products/sendReview" method="POST">
+
+                <div class="form-group">
+                    <input type="hidden" name="idProduct" value={{idProduct}}>   
+                    <input type="text" style="width:200px; height:50px;" name="review_" class="form-control"
+                        placeholder="Review Here">
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        SEND REVIEW
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

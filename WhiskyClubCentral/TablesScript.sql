@@ -3,7 +3,8 @@ GO
 
 --TABLES--------------------------------------------------------
 ----------------------------------------------------------------
-
+ALTER TABLE productReview ADD FOREIGN KEY (productReview_client) REFERENCES [dbo].[Client] ([id_client])
+ALTER TABLE productReview ADD FOREIGN KEY (product_review) REFERENCES [dbo].[Product] ([id_product])
 --PRODUCT
 CREATE TABLE Product (
     id_product INT PRIMARY KEY IDENTITY (1, 1),

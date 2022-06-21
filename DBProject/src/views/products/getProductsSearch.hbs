@@ -20,7 +20,8 @@
                 <th>Distance</th>
                 <th>Special</th>
                 <th>Quantity&nbsp;sold</th>
-                <th></th>
+                <th>REVIEW</th>
+               
             </tr>
         </thead>
 
@@ -43,6 +44,16 @@
                 <td>{{nearbyLocation}}</td>
                 <td>{{statusProduct}}</td>
                 <td>{{amount_purchase}}</td>
+
+
+                <td>
+                    <form action="/products/review" method="POST">
+                    <input type="hidden" name="idProduct" value={{product_code}}>                    
+                    <button class="btn btn-primary btn-block" type="submit">
+                        REVIEW
+                    </button>
+                    </form>
+                </td>
                 
                 
             </tr>
@@ -50,5 +61,5 @@
             {{/each}}
 
         </tbody>
-
+    </table>
 </div>
