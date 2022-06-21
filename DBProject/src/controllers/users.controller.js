@@ -32,6 +32,13 @@ export const loadPageSubscription = async (req, res) => {
       .request()
       .execute(`getSubscriptionCatalog`);
     const subscriptionInfo = result.recordset;
+    const info = req.user.dollarEquivalent;
+
+    for(var k in subscriptionInfo) {
+      //subscriptionInfo[k].price_subscription = 
+      subscriptionInfo[k].newPrice = subscriptionInfo[k].price_subscription * info;
+   }
+
     res.render("users/subscription", { subscriptionInfo });
   } catch (error) {
     res.status(500).json(error);
@@ -94,7 +101,7 @@ export const changeUserSubscription = async (req, res) => {
     const info = resultSubs.recordset[0];
      //SEND CONFIRMATION MAIL
      let body = '<b> Your subscription purchase is confirmed: ' + info.name_subscription +'</b><br>'
-     body = body + 'Price: '+ info.price_subscription + '</b><br>'
+     body = body + 'Price: $'+ info.price_subscription + ' In your money: '+info.price_subscription* req.user.dollarEquivalent  +'</b><br>'
      body = body + 'sales discount: '+ info.discount_subscription + '</b><br>'
      body = body + 'shipping discount: '+ info.discount_shipping + '</b><br>'
      body = body + 'can see special products?: '+ info.special + '</b><br>'
