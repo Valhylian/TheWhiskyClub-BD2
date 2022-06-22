@@ -9,7 +9,7 @@ export const transporter = nodemailer.createTransport({
        ciphers:'SSLv3'
     },
     auth: {
-        user: 'shopatwhiskybrothers2@outlook.com',
+        user: 'shopatwhiskybrothers3@outlook.com',
         pass: 'proyectobases2'
     }
   });
@@ -18,7 +18,7 @@ export const transporter = nodemailer.createTransport({
 
 export function sendMail(clientMail, body) {
     var mailOptions = {
-        from: 'shopatwhiskybrothers2@outlook.com', // sender address (who sends)
+        from: 'shopatwhiskybrothers3@outlook.com', // sender address (who sends)
         to: clientMail, // list of receivers (who receives)
         subject: 'PURCHASE CONFIRMATION', // Subject line
         text: 'Dear: ' ,  // plaintext body
