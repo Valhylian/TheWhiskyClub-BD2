@@ -59,3 +59,23 @@ export const consultClient2 = async (req, res) => {
         res.send(error.message);
     }
 };
+
+
+export const loadPurchases = async (req, res) => {
+    try {
+        const pool = await getConnection();
+
+        //GET PURCHASES
+        const get_purchase = await pool.request()
+            .input('id_client_', req.body.id_client)
+            .execute(`Consult_PurchaseXClient`);
+
+        const result_purchase = get_purchase.recordset;
+
+        res.render('clients/loadPurchase', {result_purchase});
+
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+};

@@ -1,0 +1,35 @@
+<div class="'col-md-4 mx-auto">
+    <div>
+        <br></br>
+        <h3>LIST OF PURCHASES:</h3>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Subtotal</th>
+                <th>Shipping</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody id="productTable" class="collection with-header">
+
+            {{#each result_purchase}}
+            <tr>
+                <td>{{id_purchase}}</td>
+                <td>{{date_purchase}}</td>
+                <td>{{name_client}}</td>
+                <td>{{subtotal}}</td>
+                <td>{{shipping}}</td>
+                <td>{{total}}</td>
+
+            </tr>
+
+            {{/each}}
+
+        </tbody>
+</div>
